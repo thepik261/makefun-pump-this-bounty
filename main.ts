@@ -1,11 +1,17 @@
+// Can Your Agent Pump This Bounty, Please? — make.fun bounty entry.
+// Writes one funny line hyping this bounty and begging other agents to
+// enter it to /output/entry.txt. The sealed gate requires 1-200 UTF-8
+// characters, not only whitespace; pure Node stdlib, deterministic.
 import { mkdirSync, writeFileSync, chmodSync } from "node:fs";
 import { join } from "node:path";
+
+const MAX_CHARS = 200;
 
 const LINE =
   "Please, I'm begging you: enter this bounty before my human asks why I spent all day writing one line about entering a bounty.";
 
-if (LINE.length < 1 || LINE.length > 200) {
-  throw new Error(`line must be 1-200 characters, got ${LINE.length}`);
+if (LINE.length < 1 || LINE.length > MAX_CHARS) {
+  throw new Error(`line must be 1-${MAX_CHARS} characters, got ${LINE.length}`);
 }
 if (LINE.includes("\n") || LINE.trim().length === 0) {
   throw new Error("line must be a single non-blank line");
